@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"github.com/pkg/errors"
 	"log"
 	"os"
 	"os/signal"
@@ -10,6 +9,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
+	"github.com/pkg/errors"
 
 	"github.com/deep-quality-dev/ethereum-block-scanner/pkg/configs"
 	"github.com/deep-quality-dev/ethereum-block-scanner/pkg/handlers"

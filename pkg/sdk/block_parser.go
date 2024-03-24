@@ -7,42 +7,22 @@ import (
 
 	"github.com/deep-quality-dev/ethereum-block-scanner/pkg/blocks"
 	"github.com/deep-quality-dev/ethereum-block-scanner/pkg/numbers"
-	"github.com/deep-quality-dev/ethereum-block-scanner/pkg/storage/memory"
-	"github.com/deep-quality-dev/ethereum-block-scanner/pkg/transport/client/jsonrpc"
 )
-
-const _maxBlockRange = 100000
-
-// Parser defines SDK operations on the Ethereum blockchain.
-type Parser interface {
-	// GetCurrentBlock last parsed block.
-	GetCurrentBlock(ctx context.Context) (int, error)
-
-	// Subscribe adds an address to be observed for new transactions.
-	Subscribe(address string) bool
-
-	// GetTransactionsPerSubscriber lists observed transactions given a registered subscriber address.
-	GetTransactionsPerSubscriber(address string) []blocks.Transaction
-
-	// GetTransactionsForBlockRange lists inbound or outbound transactions for an address for a given block range
-	// from latest to a specified one.
-	GetTransactionsForBlockRange(ctx context.Context, address string, blockRange int) ([]blocks.Transaction, error)
-}
 
 // BlockParser implements SDK operations on the Ethereum blockchain.
 type BlockParser struct {
-	EthClient *jsonrpc.RPCClient
-	TxStore   *memory.TransactionHistoryRepository
-	SubsStore *memory.SubscriptionsRepository
+	EthClient RPCClient
+	TxStore   TransactionHistoryStore
+	SubsStore SubscriptionsStore
 }
 
 var _ Parser = (*BlockParser)(nil)
 
 // NewBlockParser is a constructor function for BlockParser.
 func NewBlockParser(
-	ethClient *jsonrpc.RPCClient,
-	txStore *memory.TransactionHistoryRepository,
-	subsStore *memory.SubscriptionsRepository,
+	ethClient RPCClient,
+	txStore TransactionHistoryStore,
+	subsStore SubscriptionsStore,
 ) *BlockParser {
 	return &BlockParser{
 		EthClient: ethClient,

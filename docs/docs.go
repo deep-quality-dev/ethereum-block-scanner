@@ -139,8 +139,6 @@ var SwaggerInfo = &swag.Spec{
 	Description:      "API for exploring Ethereum blocks.",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
-	LeftDelim:        "{{",
-	RightDelim:       "}}",
 }
 
 func init() {

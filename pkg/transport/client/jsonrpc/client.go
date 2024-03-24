@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-
 	"fmt"
 
 	"github.com/deep-quality-dev/ethereum-block-scanner/pkg/transport/client/httpx"

@@ -11,7 +11,7 @@ import (
 func InitializeHandlers(
 	config *configs.Config,
 	router *mux.Router,
-	parser *sdk.BlockParser,
+	parser sdk.Parser,
 ) *mux.Router {
 	handler := NewBlockHandler(parser)
 
