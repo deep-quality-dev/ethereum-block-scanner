@@ -16,9 +16,9 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/api/v1/block/current": {
-            "get": {
-                "description": "Get current Ethereum block.",
+        "/api/v1/address/subscribe": {
+            "post": {
+                "description": "Subscribe and address to an observer for new inbound/outbound transactions in the latest block.",
                 "consumes": [
                     "application/json"
                 ],
@@ -28,11 +28,22 @@ const docTemplate = `{
                 "tags": [
                     "blocks"
                 ],
-                "summary": "Get current Ethereum block.",
+                "summary": "Subscribe and address to an observer for new inbound/outbound transactions in the latest block.",
+                "parameters": [
+                    {
+                        "description": "Address",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.SubscribeAddress.request"
+                        }
+                    }
+                ],
                 "responses": {}
             }
         },
-        "/api/v1/{address}/transactions": {
+        "/api/v1/address/{address}/transactions": {
             "get": {
                 "description": "Get all transactions for a fixed block range given an address.",
                 "consumes": [
@@ -52,9 +63,67 @@ const docTemplate = `{
                         "name": "address",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "default": 0,
+                        "description": "Block Range",
+                        "name": "blockRange",
+                        "in": "query"
                     }
                 ],
                 "responses": {}
+            }
+        },
+        "/api/v1/block/current": {
+            "get": {
+                "description": "Get current Ethereum block.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "blocks"
+                ],
+                "summary": "Get current Ethereum block.",
+                "responses": {}
+            }
+        },
+        "/api/v1/subscription/{address}/transactions": {
+            "get": {
+                "description": "Get all transactions for a subscribed address.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "blocks"
+                ],
+                "summary": "Get all transactions for a subscribed address.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Address",
+                        "name": "address",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {}
+            }
+        }
+    },
+    "definitions": {
+        "handlers.SubscribeAddress.request": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                }
             }
         }
     }
