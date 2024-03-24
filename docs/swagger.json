@@ -1,0 +1,55 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API for exploring Ethereum blocks.",
+        "title": "Ethereum Block Scanner API",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "0.0.0.0:8080",
+    "basePath": "/",
+    "paths": {
+        "/api/v1/block/current": {
+            "get": {
+                "description": "Get current Ethereum block.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "blocks"
+                ],
+                "summary": "Get current Ethereum block.",
+                "responses": {}
+            }
+        },
+        "/api/v1/{address}/transactions": {
+            "get": {
+                "description": "Get all transactions for a fixed block range given an address.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "blocks"
+                ],
+                "summary": "Get all transactions for a fixed block range given an address.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Address",
+                        "name": "address",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {}
+            }
+        }
+    }
+}
